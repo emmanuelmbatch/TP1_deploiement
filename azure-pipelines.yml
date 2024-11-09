@@ -12,7 +12,7 @@ pool: 'default'
 variables:
   - name: CloudInitContent
   - name: resourceGroupName
-    value: 'Emmanuel'
+    value: 'Emmanuel2'
   - name: location
     value: 'Canada Central'
   - name: projectFolder
@@ -39,12 +39,12 @@ steps:
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
     subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Emmanuel'
+    resourceGroupName: 'Emmanuel2'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
-    overrideParameters: '-name "$(Emmanuel)" -location "$(Canada Central)" -vmadmin "$(EmmanuelMbatchou115)" -customData "$(CloudInitContent)"'
+    overrideParameters: '-name "$(Emmanuel2)" -location "$(Canada Central)" -sku "$(Standard)" '
     deploymentMode: 'Incremental'
     deploymentOutputs: 'KeyVaultDeployment'
 - task: AzureKeyVault@2
@@ -60,12 +60,12 @@ steps:
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
     subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Emmanuel'
+    resourceGroupName: 'Emmanuel2'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
-    overrideParameters: '-name "$(Emmanuel)" -location "$(Canada Central)" -vmadmin "$(EmmanuelMbatchou115)" -customData "$(CloudInitContent)"'
+    overrideParameters: '-name "$(Emmanuel2)" -location "$(Canada Central)" -sku "$(Standard)" '
     deploymentMode: 'Validation'
 
 
