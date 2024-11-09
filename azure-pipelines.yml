@@ -39,4 +39,17 @@ steps:
     csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.parameters.json'
     overrideParameters: '-customData $(CloudInitContent) -adminPassword $(vmadmin)'
+    deploymentMode: 'Validation'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+    subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'Emma'
+    location: 'Canada Central'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.parameters.json'
+    overrideParameters: '-customData $(CloudInitContent) -adminPassword $(vmadmin)'
     deploymentMode: 'Incremental'
