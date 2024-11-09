@@ -72,10 +72,7 @@
       "type": "string"
     },
     "adminPassword": {
-      "type": "String"
-    },
-    "customData": {
-      "type": "String"
+      "type": "secureString"
     },
     "securityType": {
       "type": "string"
@@ -99,7 +96,7 @@
     },
     "vnetVirtualNetworkName": {
       "type": "string",
-      "defaultValue": "vnet-canadacentral",
+      "defaultValue": "vnet-canadacentral-1",
       "metadata": {
         "description": "Name of the virtual network resource."
       }
@@ -119,14 +116,14 @@
             "name": "snet-canadacentral-1",
             "properties": {
               "addressPrefixes": [
-                "172.16.0.0/24"
+                "172.17.0.0/24"
               ]
             }
           }
         ],
         "addressSpace": {
           "addressPrefixes": [
-            "172.16.0.0/16"
+            "172.17.0.0/16"
           ]
         }
       }
@@ -159,7 +156,7 @@
     },
     "vnetDeploymentName": {
       "type": "string",
-      "defaultValue": "network-interface-associated-virtual-network-20241108021238"
+      "defaultValue": "network-interface-associated-virtual-network-20241108194910"
     }
   },
   "variables": {
@@ -210,7 +207,6 @@
       },
       "zones": [
         "1",
-        "2",
         "3"
       ]
     },
@@ -311,7 +307,7 @@
         "enabled": true,
         "profiles": [
           {
-            "name": "Condition par d�faut",
+            "name": "Condition par défaut",
             "capacity": {
               "default": 2,
               "minimum": 2,
@@ -429,8 +425,7 @@
               "patchSettings": {
                 "patchMode": "ImageDefault"
               }
-            },
-            "customData": "[parameters('customData')]"
+            }
           },
           "securityProfile": {
             "securityType": "[parameters('securityType')]",
@@ -557,4 +552,5 @@
       "value": "[parameters('adminUsername')]"
     }
   }
+
 }

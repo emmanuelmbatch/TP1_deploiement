@@ -9,16 +9,16 @@
       "value": "StandardSSD_LRS"
     },
     "virtualNetworkId": {
-      "value": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral"
+      "value": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral-1"
     },
     "virtualNetworkName": {
-      "value": "vnet-canadacentral"
+      "value": "vnet-canadacentral-1"
     },
     "networkSecurityGroups": {
       "value": [
         {
-          "name": "basicNsgvnet-canadacentral-nic01",
-          "id": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-nic01",
+          "name": "basicNsgvnet-canadacentral-1-nic01",
+          "id": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-1-nic01",
           "rules": [
             {
               "name": "Tcp",
@@ -40,9 +40,9 @@
     "networkInterfaceConfigurations": {
       "value": [
         {
-          "name": "vnet-canadacentral-nic01",
+          "name": "vnet-canadacentral-1-nic01",
           "primary": true,
-          "subnetId": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral/subnets/snet-canadacentral-1",
+          "subnetId": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral-1/subnets/snet-canadacentral-1",
           "applicationGatewayBackendAddressPools": [],
           "loadBalancerBackendAddressPools": [
             {
@@ -52,9 +52,9 @@
           "applicationSecurityGroups": [],
           "loadBalancerInboundNatPools": [],
           "enableAcceleratedNetworking": false,
-          "nsgName": "basicNsgvnet-canadacentral-nic01",
-          "nsgId": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-nic01",
-          "pipName": "publicIp-vnet-canadacentral-nic01"
+          "nsgName": "basicNsgvnet-canadacentral-1-nic01",
+          "nsgId": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-1-nic01",
+          "pipName": "publicIp-vnet-canadacentral-1-nic01"
         }
       ]
     },
@@ -62,7 +62,7 @@
       "value": "bepool"
     },
     "loadBalancerName": {
-      "value": "balancer1"
+      "value": "balancer"
     },
     "loadbalancingRuleFrontEndPort": {
       "value": 80
@@ -91,7 +91,6 @@
     "zone": {
       "value": [
         "1",
-        "2",
         "3"
       ]
     },
@@ -121,9 +120,6 @@
     "adminPassword": {
       "value": null
     },
-    "customData": {
-      "value": null
-    },
     "securityType": {
       "value": "TrustedLaunch"
     },
@@ -140,13 +136,13 @@
       "value": {}
     },
     "vnetVirtualNetworkName": {
-      "value": "vnet-canadacentral"
+      "value": "vnet-canadacentral-1"
     },
     "vnetResourceGroupName": {
       "value": "Emma"
     },
     "vnetDeploymentName": {
-      "value": "network-interface-associated-virtual-network-20241108021238"
+      "value": "network-interface-associated-virtual-network-20241108194910"
     },
     "vnetNatGatewaysWithNewPublicIpAddress": {
       "value": []
@@ -167,14 +163,14 @@
             "name": "snet-canadacentral-1",
             "properties": {
               "addressPrefixes": [
-                "172.16.0.0/24"
+                "172.17.0.0/24"
               ]
             }
           }
         ],
         "addressSpace": {
           "addressPrefixes": [
-            "172.16.0.0/16"
+            "172.17.0.0/16"
           ]
         }
       }
