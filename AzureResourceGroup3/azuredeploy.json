@@ -14,29 +14,14 @@
     "virtualNetworkName": {
       "type": "string"
     },
+    "backendPoolId": {
+      "type": "string"
+    },
     "networkSecurityGroups": {
       "type": "array"
     },
     "networkInterfaceConfigurations": {
       "type": "array"
-    },
-    "backendPoolName": {
-      "type": "string"
-    },
-    "loadBalancerName": {
-      "type": "string"
-    },
-    "loadbalancingRuleFrontEndPort": {
-      "type": "int"
-    },
-    "loadbalancingRuleBackendEndPort": {
-      "type": "int"
-    },
-    "loadbalancingRuleProtocol": {
-      "type": "string"
-    },
-    "InboundNATRuleFrontEndPortRangeStart": {
-      "type": "int"
     },
     "vmName": {
       "type": "string"
@@ -72,6 +57,9 @@
       "type": "string"
     },
     "adminPassword": {
+      "type": "secureString"
+    },
+    "customData": {
       "type": "secureString"
     },
     "securityType": {
@@ -156,7 +144,7 @@
     },
     "vnetDeploymentName": {
       "type": "string",
-      "defaultValue": "network-interface-associated-virtual-network-20241108194910"
+      "defaultValue": "network-interface-associated-virtual-network-20241108200500"
     }
   },
   "variables": {
@@ -191,107 +179,6 @@
         "name": "networkSecurityGroups",
         "count": "[length(parameters('networkSecurityGroups'))]"
       }
-    },
-    {
-      "name": "[concat(parameters('loadBalancerName'), '-publicip')]",
-      "type": "Microsoft.Network/publicIpAddresses",
-      "apiVersion": "2020-08-01",
-      "location": "[parameters('location')]",
-      "properties": {
-        "publicIpAllocationMethod": "Static",
-        "publicIPAddressVersion": "IPv4",
-        "idleTimeoutInMinutes": 15
-      },
-      "sku": {
-        "name": "Standard"
-      },
-      "zones": [
-        "1",
-        "3"
-      ]
-    },
-    {
-      "name": "[parameters('loadBalancerName')]",
-      "type": "Microsoft.Network/loadBalancers",
-      "apiVersion": "2021-05-01",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "Standard"
-      },
-      "properties": {
-        "frontendIPConfigurations": [
-          {
-            "name": "[concat(parameters('loadBalancerName'), '-frontendconfig01')]",
-            "properties": {
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIpAddresses', concat(parameters('loadBalancerName'), '-publicip'))]"
-              }
-            }
-          }
-        ],
-        "backendAddressPools": [
-          {
-            "name": "[parameters('backendPoolName')]"
-          }
-        ],
-        "loadBalancingRules": [
-          {
-            "name": "[concat(parameters('loadBalancerName'), '-lbrule01')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', parameters('loadBalancerName'), concat(parameters('loadBalancerName'), '-frontendconfig01'))]"
-              },
-              "backendAddressPool": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('loadBalancerName'), parameters('backendPoolName'))]"
-              },
-              "frontendPort": "[parameters('loadbalancingRuleFrontEndPort')]",
-              "backendPort": "[parameters('loadbalancingRuleBackendEndPort')]",
-              "enableFloatingIP": false,
-              "idleTimeoutInMinutes": 15,
-              "disableOutboundSnat": true,
-              "loadDistribution": "Default",
-              "protocol": "[parameters('loadbalancingRuleProtocol')]",
-              "probe": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', parameters('loadBalancerName'), concat(parameters('loadBalancerName'), '-probe01'))]"
-              }
-            }
-          }
-        ],
-        "probes": [
-          {
-            "name": "[concat(parameters('loadBalancerName'), '-probe01')]",
-            "properties": {
-              "intervalInSeconds": 15,
-              "numberOfProbes": 2,
-              "requestPath": "[if(equals(parameters('loadbalancingRuleProtocol'),'Tcp'), json('null'), '/')]",
-              "port": "[if(equals(parameters('loadbalancingRuleProtocol'), 'Tcp'), parameters('loadbalancingRuleBackendEndPort'), '80')]",
-              "protocol": "[if(equals(parameters('loadbalancingRuleProtocol'),'Tcp'), 'Tcp', 'Http')]"
-            }
-          }
-        ],
-        "inboundNatRules": [
-          {
-            "name": "[concat(parameters('loadBalancerName'), '-natRule01')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', parameters('loadBalancerName'), concat(parameters('loadBalancerName'), '-frontendconfig01'))]"
-              },
-              "backendAddressPool": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('loadBalancerName'), parameters('backendPoolName'))]"
-              },
-              "protocol": "TCP",
-              "enableFloatingIP": false,
-              "enableTcpReset": false,
-              "backendPort": 22,
-              "frontendPortRangeStart": "[parameters('InboundNATRuleFrontEndPortRangeStart')]",
-              "frontendPortRangeEnd": "[add(parameters('InboundNATRuleFrontEndPortRangeStart'), if(equals(parameters('instanceCount'), json('null')), 0, 3599))]"
-            }
-          }
-        ]
-      },
-      "dependsOn": [
-        "[concat('Microsoft.Network/publicIpAddresses/', concat(parameters('loadBalancerName'), '-publicip'))]"
-      ]
     },
     {
       "type": "Microsoft.Insights/autoscaleSettings",
@@ -362,8 +249,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "networkSecurityGroups",
-        "[concat('Microsoft.Resources/deployments/', parameters('vnetDeploymentName'))]",
-        "[concat('Microsoft.Network/loadBalancers/', parameters('loadBalancerName'))]"
+        "[concat('Microsoft.Resources/deployments/', parameters('vnetDeploymentName'))]"
       ],
       "properties": {
         "virtualMachineProfile": {
@@ -416,6 +302,11 @@
           "extensionProfile": {
             "extensions": []
           },
+          "diagnosticsProfile": {
+            "bootDiagnostics": {
+              "enabled": true
+            }
+          },
           "osProfile": {
             "computerNamePrefix": "[variables('namingInfix')]",
             "adminUsername": "[parameters('adminUsername')]",
@@ -425,7 +316,8 @@
               "patchSettings": {
                 "patchMode": "ImageDefault"
               }
-            }
+            },
+            "customData": "[parameters('customData')]"
           },
           "securityProfile": {
             "securityType": "[parameters('securityType')]",
@@ -552,5 +444,4 @@
       "value": "[parameters('adminUsername')]"
     }
   }
-
 }

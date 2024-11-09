@@ -14,26 +14,15 @@
     "virtualNetworkName": {
       "value": "vnet-canadacentral-1"
     },
+    "backendPoolId": {
+      "value": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/loadBalancers/balancer1/backendAddressPools/bepool"
+    },
     "networkSecurityGroups": {
       "value": [
         {
           "name": "basicNsgvnet-canadacentral-1-nic01",
           "id": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-1-nic01",
-          "rules": [
-            {
-              "name": "Tcp",
-              "properties": {
-                "priority": 300,
-                "protocol": "Tcp",
-                "access": "Allow",
-                "direction": "Inbound",
-                "sourceAddressPrefix": "*",
-                "sourcePortRange": "*",
-                "destinationAddressPrefix": "*",
-                "destinationPortRange": "80"
-              }
-            }
-          ]
+          "rules": []
         }
       ]
     },
@@ -46,7 +35,7 @@
           "applicationGatewayBackendAddressPools": [],
           "loadBalancerBackendAddressPools": [
             {
-              "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('loadBalancerName'), parameters('backendPoolName'))]"
+              "id": "/subscriptions/006ae760-9178-4c58-b965-89b732234df0/resourceGroups/Emma/providers/Microsoft.Network/loadBalancers/balancer1/backendAddressPools/bepool"
             }
           ],
           "applicationSecurityGroups": [],
@@ -57,24 +46,6 @@
           "pipName": "publicIp-vnet-canadacentral-1-nic01"
         }
       ]
-    },
-    "backendPoolName": {
-      "value": "bepool"
-    },
-    "loadBalancerName": {
-      "value": "balancer"
-    },
-    "loadbalancingRuleFrontEndPort": {
-      "value": 80
-    },
-    "loadbalancingRuleBackendEndPort": {
-      "value": 80
-    },
-    "loadbalancingRuleProtocol": {
-      "value": "Tcp"
-    },
-    "InboundNATRuleFrontEndPortRangeStart": {
-      "value": 50000
     },
     "vmName": {
       "value": "VMss1"
@@ -120,6 +91,9 @@
     "adminPassword": {
       "value": null
     },
+    "customData": {
+      "value": null
+    },
     "securityType": {
       "value": "TrustedLaunch"
     },
@@ -142,7 +116,7 @@
       "value": "Emma"
     },
     "vnetDeploymentName": {
-      "value": "network-interface-associated-virtual-network-20241108194910"
+      "value": "network-interface-associated-virtual-network-20241108200500"
     },
     "vnetNatGatewaysWithNewPublicIpAddress": {
       "value": []
