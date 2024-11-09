@@ -39,7 +39,7 @@ steps:
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
     subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Emmanuel'
+    resourceGroupName: 'Emma'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.json'
