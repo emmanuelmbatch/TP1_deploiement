@@ -11,7 +11,12 @@ pool: 'default'
 
 variables:
   - name: CloudInitContent
-  
+  - name: resourceGroupName
+    value: 'EmmanuelMbatchou115'
+  - name: location
+    value: 'Canada Central'
+  - name: projectFolder
+    value: 'AzureResourceGroup4'
 
 steps:
 - task: PowerShell@2
@@ -27,6 +32,21 @@ steps:
 - script: |
     echo $(CloudInitContent)
 
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: Deploying Azure KeyVAult
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+    subscriptionId: '970fcef5-9c23-4f7d-a11b-5a96d104f066'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(resourceGroupName)
+    location: $(location)
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.parameters.json'
+    overrideParameters: '-Secret MonSecretPassword'
+    deploymentMode: 'Incremental'
+    deploymentOutputs: 'KeyVaultDeployment'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -53,3 +73,34 @@ steps:
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.parameters.json'
     overrideParameters: '-customData $(CloudInitContent) -adminPassword $(vmadmin)'
     deploymentMode: 'Incremental'
+    
+  
+- task: AzureKeyVault@2
+  displayName: Get Secret
+  inputs:
+        azureSubscription: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+        KeyVaultName: 'vmadmin'
+        SecretsFilter: 'EmmanuelMbatchou115'
+        RunAsPreJob: false
+    
+- task: PowerShell@2
+  displayName: Test Secrets
+  inputs:
+        targetType: 'inline'
+        script: |
+              Write-Host $(vmadmin)
+
+- task: AzurePowerShell@5
+  displayName: Update Secret
+  inputs:
+        azureSubscription: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+        ScriptType: 'InlineScript'
+        azurePowerShellVersion: 'LatestVersion'
+        Inline: |
+          # Set the variables
+          $vaultName = "vmadmin"
+          $secretName = "EmmanuelMbatchou115"
+          $secretValue = "YourNewSecretValue"
+          
+          # Update the secret value
+          Set-AzKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue (ConvertTo-SecureString $secretValue -AsPlainText -Force)
