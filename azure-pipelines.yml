@@ -12,7 +12,7 @@ pool: 'default'
 variables:
   - name: CloudInitContent
   - name: resourceGroupName
-    value: 'EmmanuelMbatchou115'
+    value: 'Emmanuel'
   - name: location
     value: 'Canada Central'
   - name: projectFolder
@@ -39,12 +39,12 @@ steps:
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
     subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Emma'
+    resourceGroupName: 'Emmanuel'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/azuredeploy.parameters.json'
-    overrideParameters: '-Secret MonSecretPassword'
+    csmFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.parameters.json'
+    overrideParameters: '-Secret EmmanuelMbatchou115'
     deploymentMode: 'Incremental'
     deploymentOutputs: 'KeyVaultDeployment'
 - task: AzureResourceManagerTemplateDeployment@3
@@ -100,7 +100,7 @@ steps:
           # Set the variables
           $vaultName = "vmadmin"
           $secretName = "EmmanuelMbatchou115"
-          $secretValue = "YourNewSecretValue"
+          $secretValue = "EmmanuelMbatchou215"
           
           # Update the secret value
           Set-AzKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue (ConvertTo-SecureString $secretValue -AsPlainText -Force)
