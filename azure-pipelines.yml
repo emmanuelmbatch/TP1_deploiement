@@ -37,10 +37,10 @@ steps:
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
-    subscriptionId: '970fcef5-9c23-4f7d-a11b-5a96d104f066'
+    subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: $(resourceGroupName)
-    location: $(location)
+    resourceGroupName: 'Emmanuel'
+    location: 'Canada Central'
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)\$(AzureResourceGroup4)\azuredeploy.parameters.json'
@@ -93,7 +93,7 @@ steps:
 - task: AzurePowerShell@5
   displayName: Update Secret
   inputs:
-        azureSubscription: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+        azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
         ScriptType: 'InlineScript'
         azurePowerShellVersion: 'LatestVersion'
         Inline: |
@@ -104,3 +104,5 @@ steps:
           
           # Update the secret value
           Set-AzKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue (ConvertTo-SecureString $secretValue -AsPlainText -Force)
+
+
