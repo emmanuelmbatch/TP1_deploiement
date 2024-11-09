@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "value": "Emmanuel2"
+    },
+    "location": {
+      "value": "canadacentral"
+    },
+    "sku": {
+      "value": "Standard"
+    },
+    "accessPolicies": {
+      "value": []
+    },
+    "tenant": {
+      "value": "185bfdad-60f6-4944-83f3-f49a95deee1a"
+    },
+    "enabledForDeployment": {
+      "value": true
+    },
+    "enabledForTemplateDeployment": {
+      "value": true
+    },
+    "enabledForDiskEncryption": {
+      "value": false
+    },
+    "enableRbacAuthorization": {
+      "value": true
+    },
+    "publicNetworkAccess": {
+      "value": "Enabled"
+    },
+    "enableSoftDelete": {
+      "value": true
+    },
+    "softDeleteRetentionInDays": {
+      "value": 7
+    },
+    "networkAcls": {
+      "value": {
+        "defaultAction": "allow",
+        "bypass": "AzureServices",
+        "ipRules": [],
+        "virtualNetworkRules": []
+      }
+    }
+  }
+}
