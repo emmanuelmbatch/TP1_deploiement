@@ -44,7 +44,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
-    overrideParameters: '-name "$(Emmanuel2)" -location "$(canadacentral)" -sku "$(Standard)" '
+    overrideParameters: '-name "$(Emmanuel2)" -location "$(Canada Central)" -sku "$(Standard)" '
     deploymentMode: 'Incremental'
     deploymentOutputs: 'KeyVaultDeployment'
 - task: AzureKeyVault@2
@@ -65,7 +65,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
-    overrideParameters: '-name "$(Emmanuel2)" -location "$(canadacentral)" -sku "$(Standard)" '
+    overrideParameters: '-name "$(Emmanuel2)" -location "$(Canada Central)" -sku "$(Standard)" '
     deploymentMode: 'Validation'
 
 
