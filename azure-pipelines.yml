@@ -31,7 +31,13 @@ steps:
 
 - script: |
     echo $(CloudInitContent)
-
+- task: AzureKeyVault@2
+  displayName: Get Secret
+  inputs:
+        azureSubscription: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
+        KeyVaultName: 'vmadmin'
+        SecretsFilter: 'EmmanuelMbatchou115'
+        RunAsPreJob: false
 - task: AzureResourceManagerTemplateDeployment@3
   displayName: Deploying Azure KeyVAult
   inputs:
@@ -42,8 +48,8 @@ steps:
     resourceGroupName: 'Emmanuel'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)\$(projectFolder)\azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)\$(projectFolder)\azuredeploy.parameters.json'
+    csmFile: '$(Build.SourcesDirectory)\$(projectFolder)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
     overrideParameters: '-Secret EmmanuelMbatchou115'
     deploymentMode: 'Incremental'
     deploymentOutputs: 'KeyVaultDeployment'
@@ -78,34 +84,7 @@ steps:
     deploymentMode: 'Incremental'
     
   
-- task: AzureKeyVault@2
-  displayName: Get Secret
-  inputs:
-        azureSubscription: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
-        KeyVaultName: 'vmadmin'
-        SecretsFilter: 'EmmanuelMbatchou115'
-        RunAsPreJob: false
-    
-- task: PowerShell@2
-  displayName: Test Secrets
-  inputs:
-        targetType: 'inline'
-        script: |
-              Write-Host $(vmadmin)
 
-- task: AzurePowerShell@5
-  displayName: Update Secret
-  inputs:
-        azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
-        ScriptType: 'InlineScript'
-        azurePowerShellVersion: 'LatestVersion'
-        Inline: |
-          # Set the variables
-          $vaultName = "vmadmin"
-          $secretName = "EmmanuelMbatchou115"
-          $secretValue = "EmmanuelMbatchou215"
-          
-          # Update the secret value
-          Set-AzKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue (ConvertTo-SecureString $secretValue -AsPlainText -Force)
+    
 
 
