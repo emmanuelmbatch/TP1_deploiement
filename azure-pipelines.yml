@@ -60,12 +60,12 @@ steps:
     azureResourceManagerConnection: 'Abonnement Azure 1(006ae760-9178-4c58-b965-89b732234df0)'
     subscriptionId: '006ae760-9178-4c58-b965-89b732234df0'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'Emma'
+    resourceGroupName: 'Emmanuel'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.json'
-    csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup3/azuredeploy.parameters.json'
-    overrideParameters: '-customData $(CloudInitContent) -adminPassword $(vmadmin)'
+    csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
+    csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
+    overrideParameters: '-Secret EmmanuelMbatchou115'
     deploymentMode: 'Validation'
 
 
