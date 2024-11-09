@@ -42,7 +42,7 @@ steps:
     resourceGroupName: 'Emmanuel'
     location: 'Canada Central'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.SourcesDirectory)\$(projectFolder)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
+    csmFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.json'
     csmParametersFile: '$(Build.SourcesDirectory)/AzureResourceGroup4/AzureResourceGroup4/azuredeploy.parameters.json'
     overrideParameters: '-Secret EmmanuelMbatchou115'
     deploymentMode: 'Incremental'
