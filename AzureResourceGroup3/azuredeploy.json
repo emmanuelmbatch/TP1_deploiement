@@ -60,7 +60,7 @@
       "type": "secureString"
     },
     "customData": {
-      "type": "secureString"
+      "type": "string"
     },
     "securityType": {
       "type": "string"
